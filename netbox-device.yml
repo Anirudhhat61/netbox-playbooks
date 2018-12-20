@@ -1,0 +1,64 @@
+- name: "Test Netbox modules"
+  connection: local
+  hosts: localhost
+  gather_facts: False
+
+  tasks:
+    - name: Create device within Netbox with only required information
+      netbox_device:
+        netbox_url: http://netbox-demo.org:32768
+        netbox_token: 0123456789abcdef0123456789abcdef01234567
+        data:
+          name: Test66
+          device_type: Cisco Test
+          device_role: Core Switch
+          site: Test
+          status: Staged
+        state: present
+
+    - name: Create existing device
+      netbox_device:
+        netbox_url: http://netbox-demo.org:32768
+        netbox_token: 0123456789abcdef0123456789abcdef01234567
+        data:
+          name: Test66
+          device_type: Cisco Test
+          device_role: Core Switch
+          site: Test
+          status: Staged
+        state: present
+
+    - name: Create device with tags and assign to rack
+      netbox_device:
+        netbox_url: http://netbox-demo.org:32768
+        netbox_token: 0123456789abcdef0123456789abcdef01234567
+        data:
+          name: Test108
+          device_type: Arista Test
+          device_role: Core Switch
+          site: Site2
+          rack: Test Rack
+          position: 35
+          face: Front
+          tags:
+            - Schnozzberry
+          custom_fields:
+            test: TestCustomField
+        state: present
+
+    - name: Delete previous device
+      netbox_device:
+        netbox_url: http://netbox-demo.org:32768
+        netbox_token: 0123456789abcdef0123456789abcdef01234567
+        data:
+          name: Test108
+        state: absent
+
+
+    - name: Delete existing device
+      netbox_device:
+        netbox_url: http://netbox-demo.org:32768
+        netbox_token: 0123456789abcdef0123456789abcdef01234567
+        data:
+          name: Test66
+        state: absent

@@ -1,0 +1,53 @@
+- name: "Test Netbox modules"
+  connection: local
+  hosts: localhost
+  gather_facts: False
+
+  tasks:
+    - name: Create IP address within Netbox with only required information
+      netbox_ip_address:
+        netbox_url: http://netbox-demo.org:32768
+        netbox_token: 0123456789abcdef0123456789abcdef01234567
+        data:
+          vrf: Test
+          address: 192.168.1.10/30
+        state: present
+
+    - name: Delete IP address within netbox
+      netbox_ip_address:
+        netbox_url: http://netbox-demo.org:32768
+        netbox_token: 0123456789abcdef0123456789abcdef01234567
+        data:
+          address: 192.168.1.10
+        state: absent
+
+    - name: Create IP address with several specified
+      netbox_ip_address:
+        netbox_url: http://netbox-demo.org:32768
+        netbox_token: 0123456789abcdef0123456789abcdef01234567
+        data:
+          family: 4
+          address: 172.16.1.20/24
+          vrf: Test
+          tenant: Test Tenant
+          status: Reserved
+          role: Loopback
+          description: Test description
+          tags:
+            - Schnozzberry
+        state: present
+
+    - name: Create IP address and assign a nat_inside IP
+      netbox_ip_address:
+        netbox_url: http://netbox-demo.org:32768
+        netbox_token: 0123456789abcdef0123456789abcdef01234567
+        data:
+          family: 4
+          address: 10.10.1.30/16
+          vrf: Test
+          nat_inside:
+            address: 172.16.1.20
+            vrf: Test
+          interface:
+            name: GigabitEthernet1
+            device: test100
