@@ -27,14 +27,14 @@
         data:
           family: 4
           prefix: 10.156.32.0/19
-          site: Site2
-          vrf: Test
+          site: Test Site 2
+          vrf: Test VRF
           tenant: Test Tenant
           vlan:
             name: Test VLAN
-            site: test
+            site: Test Site
             tenant: Test Tenant
-            vlan_group: Test 
+            vlan_group: Test Vlan Group
           status: Reserved
           role: Network of care
           description: Test description
