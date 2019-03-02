@@ -43,17 +43,52 @@
             - Schnozzberry
         state: present
 
-    - name: Create prefix with several specified options
+    - name: Get a new /24 inside 10.156.0.0/19 within Netbox - Parent doesn't exist
       netbox_prefix:
         netbox_url: http://netbox-demo.org:32768
         netbox_token: 0123456789abcdef0123456789abcdef01234567
         data:
-          prefix: 10.156.32.0/19
+          parent: 10.156.0.0/19
+          prefix_length: 24
+        state: present
+        first_available: yes
 
-    - name: Remove prefix
+    - name: Create prefix within Netbox with only required information
       netbox_prefix:
         netbox_url: http://netbox-demo.org:32768
         netbox_token: 0123456789abcdef0123456789abcdef01234567
         data:
-          prefix: 10.156.32.0/19
-        state: absent
+          prefix: 10.156.0.0/19
+        state: present
+
+    - name: Get a new /24 inside 10.156.0.0/19 within Netbox
+      netbox_prefix:
+        netbox_url: http://netbox-demo.org:32768
+        netbox_token: 0123456789abcdef0123456789abcdef01234567
+        data:
+          parent: 10.156.0.0/19
+          prefix_length: 24
+        state: present
+        first_available: yes
+
+    - name: Create 10.157.0.0/19
+      netbox_prefix:
+        netbox_url: http://netbox-demo.org:32768
+        netbox_token: 0123456789abcdef0123456789abcdef01234567
+        data:
+          prefix: 10.157.0.0/19
+          vrf: Test VRF
+          site: Test Site
+        state: present
+
+    - name: Get a new /24 inside 10.157.0.0/19 within Netbox with additional values
+      netbox_prefix:
+        netbox_url: http://netbox-demo.org:32768
+        netbox_token: 0123456789abcdef0123456789abcdef01234567
+        data:
+          parent: 10.157.0.0/19
+          prefix_length: 24
+          vrf: Test VRF
+          site: Test Site
+        state: present
+        first_available: yes
