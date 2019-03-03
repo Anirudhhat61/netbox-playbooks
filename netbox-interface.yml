@@ -12,6 +12,7 @@
           device: test100
           name: GigabitEthernet1
         state: present
+
     - name: Delete interface within netbox
       netbox_interface:
         netbox_url: http://netbox-demo.org:32768
@@ -20,6 +21,7 @@
           device: test100
           name: GigabitEthernet1
         state: absent
+
     - name: Create LAG with several specified options
       netbox_interface:
         netbox_url: http://netbox-demo.org:32768
@@ -32,6 +34,7 @@
           mgmt_only: false
           mode: Access
         state: present
+
     - name: Create interface and assign it to parent LAG
       netbox_interface:
         netbox_url: http://netbox-demo.org:32768
@@ -46,4 +49,26 @@
           mtu: 1600
           mgmt_only: false
           mode: Access
+        state: present
+
+    - name: Create interface as a trunk port
+      netbox_interface:
+        netbox_url: http://netbox-demo.org:32768
+        netbox_token: 0123456789abcdef0123456789abcdef01234567
+        data:
+          device: test100
+          name: GigabitEthernet26
+          enabled: false
+          form_factor: 1000Base-t (1GE)
+          untagged_vlan:
+            name: Wireless
+            site: Test Site
+          tagged_vlans:
+            - name: Data
+              site: Test Site
+            - name: VoIP
+              site: Test Site
+          mtu: 1600
+          mgmt_only: true
+          mode: Tagged
         state: present
