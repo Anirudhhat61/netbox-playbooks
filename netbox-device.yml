@@ -28,6 +28,15 @@
           status: Staged
         state: present
 
+    - name: Update serial number
+      netbox_device:
+        netbox_url: http://netbox-demo.org:32768
+        netbox_token: 0123456789abcdef0123456789abcdef01234567
+        data:
+          name: Test66
+          serial: FXS10001
+        state: present
+
     - name: Create device with tags and assign to rack
       netbox_device:
         netbox_url: http://netbox-demo.org:32768

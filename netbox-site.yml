@@ -11,6 +11,17 @@
           name: Test - Colorado
         state: present
 
+    - name: Update Test - Colorado
+      netbox_site:
+        netbox_url: http://netbox-demo.org:32768
+        netbox_token: 0123456789abcdef0123456789abcdef01234567
+        data:
+          name: Test - Colorado
+          status: Planned
+          region: Test Region
+          contact_name: Mikhail
+        state: present
+
     - name: Delete site within netbox
       netbox_site:
         netbox_url: http://netbox-demo.org:32768

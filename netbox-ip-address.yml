@@ -12,6 +12,17 @@
           address: 192.168.1.10/30
         state: present
 
+    - name: "Update 192.168.1.10/30"
+      netbox_ip_address:
+        netbox_url: http://netbox-demo.org:32768
+        netbox_token: 0123456789abcdef0123456789abcdef01234567
+        data:
+          address: 192.168.1.10/30
+          description: "Updated ip address"
+          tags:
+            - Updated
+        state: present
+
     - name: "Delete IP - 192.168.1.10 - State: Absent"
       netbox_ip_address:
         netbox_url: http://netbox-demo.org:32768
